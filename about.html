@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Us - AI Healthcare Chatbot</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(to right, #eef2ff, #f8fbff);
+    color: #333;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* NAVBAR */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: green;
+    padding: 15px 50px;
+    color: white;
+}
+
+.logo {
+    font-size: 20px;
+    font-weight: 600;
+}
+.logo {
+    font-size: 26px;
+    color: #00ffcc;
+}
+.logo {
+    font-size: 20px;
+    font-weight: 600;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Circle + sign */
+.plus {
+    width: 32px;
+    height: 32px;
+    background:white;
+    color: black;
+    font-weight: bold;
+    font-size: 18px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;  /* ye circle banata hai */
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    margin-left: 25px;
+    font-size: 14px;
+}
+
+.nav-links a:hover {
+    text-decoration: underline;
+}
+
+/* HEADER */
+.header {
+    text-align: center;
+    padding: 60px 20px;
+    background: white;
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 34px;
+    color: #1f3c88;
+}
+
+.header p {
+    margin-top: 10px;
+    color: #666;
+}
+
+/* CONTAINER */
+.container {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+/* SECTION BOX */
+.section {
+    margin-bottom: 25px;
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+
+    opacity: 0;
+    transform: translateY(40px);
+    animation: fadeUp 0.8s ease forwards;
+}
+
+/* Animation Delay */
+.section:nth-child(1) { animation-delay: 0.2s; }
+.section:nth-child(2) { animation-delay: 0.4s; }
+.section:nth-child(3) { animation-delay: 0.6s; }
+.section:nth-child(4) { animation-delay: 0.8s; }
+.section:nth-child(5) { animation-delay: 1s; }
+.section:nth-child(6) { animation-delay: 1.2s; }
+
+/* Hover Effect */
+.section:hover {
+    transform: translateY(-8px);
+    transition: 0.3s;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+}
+
+/* Animation */
+@keyframes fadeUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.section h2 {
+    color: #1f3c88;
+    margin-bottom: 10px;
+}
+
+.section p {
+    line-height: 1.7;
+    font-size: 15px;
+    color: #555;
+}
+
+/* LIST */
+ul {
+    padding-left: 20px;
+}
+
+li {
+    margin-bottom: 8px;
+}
+
+/* BUTTON */
+.back-btn {
+    display: inline-block;
+    margin-top: 30px;
+    padding: 12px 28px;
+    background: #1f3c88;
+    color: white;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.back-btn:hover {
+    background: #162d66;
+}
+
+.center {
+    text-align: center;
+}
+
+</style>
+<style>
+
+/* your existing CSS same rahega */
+
+/* SECTION HEADING BOX STYLE (UPDATED) */
+.section h2 {
+    display: inline-block;
+    background: linear-gradient(45deg, #1f3c88, #00c6a9);
+    color: white;
+    padding: 10px 18px;
+    border-radius: 20px;
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+    
+    <div class="logo">
+    <span class="plus">+</span> HealthAI
+</div>
+    
+    
+    
+    <div class="nav-links">
+        <a href="firstpage.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="hospital.html">Services</a>
+        <a href="loginandregister.html">Login</a>
+        <a href="chat.html">Chat</a>
+    </div>
+</div>
+
+<!-- HEADER -->
+<div class="header">
+    <h1>About Our AI Healthcare Chatbot</h1>
+    <p>Providing simple, fast, and reliable healthcare guidance using AI technology</p>
+</div>
+
+<!-- CONTENT -->
+<div class="container">
+
+    <div class="section">
+        <h2>Introduction</h2>
+<ul>
+    <li>The AI Healthcare Chatbot is a smart web-based application.</li>
+    <li>It provides quick and easy healthcare guidance to users.</li>
+    <li>Helps in understanding common symptoms and health issues.</li>
+    <li>Gives instant responses using intelligent technology.</li>
+    <li>Useful for minor health-related queries and basic support.</li>
+
+</ul>
+    </div>
+
+    <div class="section">
+        
+        <h2>Our Mission</h2>
+<ul>
+    <li>To provide simple and accessible healthcare guidance to everyone</li>
+    <li>To make basic health information available anytime and anywhere</li>
+    <li>To spread awareness about common diseases and preventive care</li>
+    <li>To reduce unnecessary hospital visits for minor health issues</li>
+   
+</ul>
+       
+        
+    </div>
+
+    <div class="section">
+        <h2>What We Offer</h2>
+        <ul>
+            <li>Information about common diseases and symptoms</li>
+            <li>Diet plans and nutrition suggestions</li>
+            <li>Fitness and exercise recommendations</li>
+            <li>Mental health and wellness tips</li>
+            <li>Basic first-aid guidance</li>
+            <li>Instant chatbot-based query resolution</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>Key Features</h2>
+        <ul>
+            <li>User-friendly and responsive interface</li>
+            <li>24/7 availability</li>
+            <li>AI-based intelligent responses</li>
+            <li>Mobile & desktop support</li>
+            <li>Secure and fast performance</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>Important Disclaimer</h2>
+
+
+    <ul>
+    
+        <li>In case of emergency, immediately contact a hospital or emergency service</li>
+        <li>The chatbot provides general guidance and may not be 100% accurate</li>
+        <li>User data should be handled carefully and privacy must be maintained</li>
+    </ul>
+    </div>
+
+    <div class="section">
+        <h2>Future Scope</h2>
+        <ul>
+            <li>Integration with Artificial Intelligence and Machine Learning for smarter responses</li>
+            <li>Use of Natural Language Processing (NLP) for better understanding of user queries</li>
+            <li>Connection with smart health devices like smartwatches and fitness trackers</li>
+            <li>Providing personalized health recommendations based on user data</li>
+            <li>Integration with hospital systems for doctor suggestions and appointment booking</li>
+        </ul>
+    </div>
+
+    
+
+</div>
+
+</body>
+</html>

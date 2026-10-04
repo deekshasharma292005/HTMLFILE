@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Healthcare AI Login</title>
+<style>
+:root {
+    --primary: #00897b;
+    --primary-dark: #00695c;
+    --surface: #ffffff;
+    --background-start: #e0f7fa;
+    --background-end: #f1f8e9;
+    --text: #16323a;
+    --muted: #5f7c85;
+    --danger: #c62828;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--background-start), var(--background-end));
+    color: var(--text);
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.container {
+    width: min(92vw, 400px);
+    padding: 32px;
+    border-radius: 24px;
+    background: var(--surface);
+    box-shadow: 0 18px 45px rgba(22, 50, 58, 0.18);
+}
+
+h1 {
+    margin: 0 0 8px;
+    color: var(--primary-dark);
+    text-align: center;
+}
+
+.subtitle {
+    margin: 0 0 24px;
+    text-align: center;
+    color: var(--muted);
+}
+
+.input-box {
+    position: relative;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 13px 44px 13px 14px;
+    margin: 10px 0;
+    border: 1px solid #c9d8dd;
+    border-radius: 12px;
+    font-size: 15px;
+    background: #fff;
+}
+
+input:focus,
+select:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(0, 137, 123, 0.12);
+}
+
+.eye {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: var(--muted);
+    user-select: none;
+}
+
+button {
+    width: 100%;
+    margin-top: 8px;
+    padding: 13px;
+    border: none;
+    border-radius: 12px;
+    background: var(--primary);
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+button:hover {
+    background: var(--primary-dark);
+}
+
+button:disabled {
+    opacity: 0.7;
+    cursor: wait;
+}
+
+.toggle {
+    margin-top: 14px;
+    text-align: center;
+    color: var(--primary-dark);
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.hidden {
+    display: none;
+}
+
+.status {
+    min-height: 22px;
+    margin-top: 14px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 14px;
+}
+
+.status.error {
+    color: var(--danger);
+}
+
+.home-link {
+    display: block;
+    margin: 22px auto 0;
+    width: fit-content;
+    text-decoration: none;
+    color: var(--primary-dark);
+    font-weight: 600;
+}
+</style>
+</head>
+<body>
+<div class="container">
+    <div id="loginForm">
+        <h1>Healthcare AI</h1>
+        <p class="subtitle">Log in to continue to your healthcare assistant.</p>
+
+        <input type="text" id="loginUsername" placeholder="Username" autocomplete="username">
+
+        <div class="input-box">
+            <input type="password" id="loginPassword" placeholder="Password" autocomplete="current-password">
+            <span class="eye" onclick="togglePassword('loginPassword')">Show</span>
+        
+        </div>
+
+        <button id="loginButton" onclick="login()">Login</button>
+        <div class="toggle" onclick="showRegister()">New user? Create an account</div>
+        <div id="loginStatus" class="status"></div>
+        <a class="home-link" href="firstpage.html">Back to Home</a>
+    </div>
+
+    <div id="registerForm" class="hidden">
+        <h1>Create Account</h1>
+        <p class="subtitle">Register with a username and secure password.</p>
+
+        <input type="text" id="regUsername" placeholder="Username" autocomplete="username">
+        <input type="number" id="regAge" placeholder="Age" min="1" max="120" autocomplete="off">
+        <select id="regGender" autocomplete="sex">
+            <option value="">Select Gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
+            <option value="Prefer not to say">Prefer not to say</option>
+        </select>
+
+        <div class="input-box">
+            <input type="password" id="regPassword" placeholder="Password" autocomplete="new-password">
+            <span class="eye" onclick="togglePassword('regPassword')">Show</span>
+        </div>
+
+        <button id="registerButton" onclick="registerUser()">Register</button>
+        <div class="toggle" onclick="showLogin()">Already have an account?</div>
+        <div id="registerStatus" class="status"></div>
+        <a class="home-link" href="firstpage.html">Back to Home</a>
+    </div>
+</div>
+
+<script>
+const API_BASE_URL = "http://127.0.0.1:5000";
+
+function validatePassword(password) {
+    return /^(?=.*\d).{8,}$/.test(password);
+}
+
+function setStatus(elementId, message, isError = false) {
+    const status = document.getElementById(elementId);
+    status.textContent = message;
+    status.classList.toggle("error", isError);
+}
+
+function togglePassword(id) {
+    const input = document.getElementById(id);
+    input.type = input.type === "password" ? "text" : "password";
+}
+
+function showRegister() {
+    document.getElementById("loginForm").classList.add("hidden");
+    document.getElementById("registerForm").classList.remove("hidden");
+    setStatus("loginStatus", "");
+}
+
+function showLogin() {
+    document.getElementById("registerForm").classList.add("hidden");
+    document.getElementById("loginForm").classList.remove("hidden");
+    setStatus("registerStatus", "");
+}
+
+async function sendAuthRequest(endpoint, payload) {
+    const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(payload)
+    });
+
+    const data = await response.json().catch(() => ({ message: "Unexpected server response." }));
+    if (!response.ok) {
+        throw new Error(data.message || "Request failed.");
+    }
+
+    return data;
+}
+
+async function registerUser() {
+    const username = document.getElementById("regUsername").value.trim();
+    const age = document.getElementById("regAge").value.trim();
+    const gender = document.getElementById("regGender").value;
+    const password = document.getElementById("regPassword").value;
+    const button = document.getElementById("registerButton");
+
+    if (!username || !age || !gender || !password) {
+        setStatus("registerStatus", "Please fill in all fields.", true);
+        return;
+    }
+
+    if (!Number.isInteger(Number(age)) || Number(age) < 1 || Number(age) > 120) {
+        setStatus("registerStatus", "Please enter a valid age between 1 and 120.", true);
+        return;
+    }
+
+    if (!validatePassword(password)) {
+        setStatus("registerStatus", "Password must be at least 8 characters and include a number.", true);
+        return;
+    }
+
+    button.disabled = true;
+    setStatus("registerStatus", "Creating your account...");
+
+    try {
+        const result = await sendAuthRequest("/register", {
+            username,
+            age: Number(age),
+            gender,
+            password
+        });
+        setStatus("registerStatus", result.message || "Registered successfully.");
+        document.getElementById("regAge").value = "";
+        document.getElementById("regGender").value = "";
+        document.getElementById("regPassword").value = "";
+        document.getElementById("loginUsername").value = username;
+        showLogin();
+        setStatus("loginStatus", "Account created. You can log in now.");
+    } catch (error) {
+        setStatus("registerStatus", error.message, true);
+    } finally {
+        button.disabled = false;
+    }
+}
+
+async function login() {
+    const username = document.getElementById("loginUsername").value.trim();
+    const password = document.getElementById("loginPassword").value;
+    const button = document.getElementById("loginButton");
+
+    if (!username || !password) {
+        setStatus("loginStatus", "Please fill in both fields.", true);
+        return;
+    }
+
+    button.disabled = true;
+    setStatus("loginStatus", "Checking your credentials...");
+
+    try {
+        const result = await sendAuthRequest("/login", { username, password });
+        localStorage.setItem("healthcare_ai_user", username);
+        setStatus("loginStatus", result.message || "Login successful.");
+        window.location.href = "chatbot.html";
+    } catch (error) {
+        setStatus("loginStatus", error.message, true);
+    } finally {
+        button.disabled = false;
+    }
+}
+</script>
+</body>
+</html>

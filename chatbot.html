@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CareaAI - AI Healthcare Assistant</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+
+    <div class="background-animation">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <div class="app-container">
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <i class="fa-solid fa-staff-snake"></i>
+                <h2>CareaAI</h2>
+            </div>
+
+            <nav class="features-nav">
+                <h3>Capabilities</h3>
+
+                <!-- dynamic features (JS se bhi aa sakte hain later) -->
+                <button class="feature-btn" data-feature="symptom">
+                    <i class="fa-solid fa-stethoscope"></i>
+                    Symptom Analysis
+                </button>
+
+                <button class="feature-btn" data-feature="prediction">
+                    <i class="fa-solid fa-virus-covid"></i>
+                    Disease Prediction
+                </button>
+
+                <button class="feature-btn" data-feature="precaution">
+                    <i class="fa-solid fa-shield-virus"></i>
+                    Precautions & Care
+                </button>
+
+                <button class="feature-btn" data-feature="awareness">
+                    <i class="fa-solid fa-heart-pulse"></i>
+                    Health Awareness
+                </button>
+            </nav>
+
+            <!-- Dynamic user -->
+            <div class="user-profile">
+                <div class="avatar">
+                    <i class="fa-regular fa-user"></i>
+                </div>
+                <div class="user-info">
+                    <span class="user-name" id="userName">User</span>
+                    <span class="status">Online</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Chat Area -->
+        <main class="chat-area">
+
+            <header class="chat-header">
+                <div class="ai-status">
+                    <div class="pulse"></div>
+                    <span id="aiStatusText">AI Assistant Ready</span>
+                </div>
+
+                <div style="display: flex; gap: 12px;">
+                    <button class="settings-btn" onclick="window.location.href='firstpage.html'">
+                        <i class="fa-solid fa-home"></i> Home
+                    </button>
+
+                    <button class="settings-btn" id="newChatBtn">
+                        <i class="fa-solid fa-plus"></i> New Chat
+                    </button>
+                </div>
+            </header>
+
+            <!-- Chat Window -->
+            <div class="chat-window" id="chatWindow">
+                <!-- messages JS se aayenge -->
+            </div>
+
+            <!-- Input -->
+            <div class="input-area">
+                <div class="input-wrapper">
+
+                    <input type="text"
+                           id="userInput"
+                           class="chat-input"
+                           placeholder="Type your message..."
+                           autocomplete="off">
+
+                    <button id="micBtn" class="mic-btn" title="Voice Input">
+                        <i class="fa-solid fa-microphone"></i>
+                    </button>
+
+                    <button id="sendBtn" class="send-btn">
+                        <i class="fa-solid fa-paper-plane"></i>
+                    </button>
+
+                </div>
+
+                <div class="control-buttons">
+                    <button id="langToggleBtn" class="control-btn">
+                        <i class="fa-solid fa-language"></i> <span id="langLabel">EN</span>
+                    </button>
+
+                    <button id="voiceToggleBtn" class="control-btn">
+                        <i class="fa-solid fa-volume-high"></i> Voice
+                    </button>
+                </div>
+
+                <p class="disclaimer">
+                    This AI is for informational purposes only.
+                </p>
+            </div>
+
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+
+</body>
+</html>

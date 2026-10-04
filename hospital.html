@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nearby Hospitals Finder</title>
+
+<style>
+/* Basic styling */
+body {
+    font-family: 'Poppins', Arial, sans-serif;
+    text-align: center;
+    background: linear-gradient(to right, #dcefff, #f9fcff);
+    background-image: url('https://images.unsplash.com/photo-1470506028280-4805d3dbf2d3?auto=format&fit=crop&w=1400&q=80');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: #333;
+    padding: 40px 20px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.35);
+    mix-blend-mode: lighten;
+    pointer-events: none;
+    z-index: -1;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: linear-gradient(120deg, rgba(44, 123, 229, 0.08), rgba(40, 167, 69, 0.08));
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* Add subtle healthcare icon overlay */
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: radial-gradient(circle at 15% 20%, rgba(44, 123, 229, 0.2), transparent 30%), radial-gradient(circle at 85% 30%, rgba(40, 167, 69, 0.15), transparent 30%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+
+/* Heading animation */
+h1 {
+    font-size: 36px;
+    margin-bottom: 30px;
+    animation: fadeInDown 1s ease forwards;
+}
+
+/* Buttons style and animation */
+button {
+    padding: 14px 24px;
+    background: #2c7be5;
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin: 20px 0;
+    border-radius: 8px;
+    font-size: 18px;
+    transition: 0.3s, transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 5px 15px rgba(44, 123, 229, 0.4);
+    animation: fadeInUp 1.2s ease forwards;
+}
+button:hover {
+    transform: scale(1.1) translateY(-3px);
+    box-shadow: 0 10px 25px rgba(44, 123, 229, 0.6);
+}
+
+/* Result container */
+#result {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: flex-start;
+    animation: fadeIn 1.5s ease forwards;
+    flex-wrap: wrap;
+}
+
+/* Facility section */
+.facility-section {
+    width: 45%;
+    min-width: 300px;
+}
+
+.facility-section h2 {
+    font-size: 24px;
+    margin-bottom: 15px;
+    color: #2c7be5;
+}
+
+/* Hospital card styling */
+.hospital-card {
+    background: white;
+    width: 90%;
+    max-width: 400px;
+    padding: 20px;
+    margin: 12px 0;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    text-align: left;
+    transition: 0.3s, transform 0.3s;
+}
+.hospital-card:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+.hospital-card b {
+    font-size: 18px;
+    color: #2c7be5;
+}
+
+/* Back to Home Button */
+#backHome {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 12px 22px;
+    background: #28a745;
+    color: white;
+    border-radius: 8px;
+    font-size: 16px;
+    text-decoration: none;
+    transition: 0.3s, transform 0.3s, box-shadow 0.3s;
+    animation: fadeInUp 1.5s ease forwards;
+}
+#backHome:hover {
+    transform: scale(1.1) translateY(-3px);
+    box-shadow: 0 10px 25px rgba(40, 167, 69, 0.5);
+}
+
+/* Animations */
+@keyframes fadeInDown {0%{opacity:0; transform:translateY(-30px);}100%{opacity:1; transform:translateY(0);}}
+@keyframes fadeInUp {0%{opacity:0; transform:translateY(30px);}100%{opacity:1; transform:translateY(0);}}
+@keyframes fadeIn {0%{opacity:0;}100%{opacity:1;}}
+
+/* Responsive */
+@media(max-width:480px){
+    h1 {font-size:28px;}
+    button, #backHome {width:80%; font-size:16px;}
+    .hospital-card {width:95%;}
+}
+</style>
+</head>
+
+<body>
+
+<h1>🏥 Nearby Healthcare Facilities Finder</h1>
+<button onclick="findFacilities()">Find Nearby Facilities</button>
+<button onclick="findHospitals()">Find Nearby Hospitals</button>
+<button onclick="findLaboratories()">Find Nearby Laboratories</button>
+
+<div id="result"></div>
+
+<!-- Back to Home button -->
+<a href="firstpage.html" id="backHome">⬅ Back to Home</a>
+
+<script>
+function findFacilities() {
+    if (!navigator.geolocation) {
+        alert("Geolocation not supported");
+        return;
+    }
+
+    navigator.geolocation.getCurrentPosition(function(pos) {
+        let lat = pos.coords.latitude;
+        let lon = pos.coords.longitude;
+
+        // Open Google Maps with hospitals
+        let mapUrl = `https://www.google.com/maps/search/hospitals+and+laboratories/@${lat},${lon},14z`;
+        window.open(mapUrl, "_blank");
+
+        // Example hospital list (Solan)
+        let hospitals = [
+            { name: "Civil Hospital Solan", phone: "01792-223456" },
+            { name: "JP Hospital Solan", phone: "01792-220123" },
+            { name: "ESI Hospital Solan", phone: "01792-227890" }
+        ];
+
+        let hospitalOutput = '<div class="facility-section"><h2>Hospitals</h2>';
+        hospitals.forEach(h => {
+            hospitalOutput += `
+                <div class="hospital-card">
+                    🏥 <b>${h.name}</b><br>
+                    📞 ${h.phone}
+                </div>
+            `;
+        });
+        hospitalOutput += '</div>';
+
+        // Example laboratory list (Solan)
+        let laboratories = [
+            { name: "Solan Diagnostic Lab", phone: "01792-224567" },
+            { name: "Pathology Center Solan", phone: "01792-221234" },
+            { name: "Medical Testing Lab Solan", phone: "01792-228901" }
+        ];
+
+        let labOutput = '<div class="facility-section"><h2>Laboratories</h2>';
+        laboratories.forEach(l => {
+            labOutput += `
+                <div class="hospital-card">
+                    🧪 <b>${l.name}</b><br>
+                    📞 ${l.phone}
+                </div>
+            `;
+        });
+        labOutput += '</div>';
+
+        let seeMore = '<div style="width: 100%; text-align: center; margin-top: 20px;"><button onclick="window.open(\'' + mapUrl + '\', \'_blank\')">See More on Maps</button></div>';
+
+        document.getElementById("result").innerHTML = hospitalOutput + labOutput + seeMore;
+
+    }, function() {
+        alert("Location permission denied");
+    });
+}
+
+function findHospitals() {
+    if (!navigator.geolocation) {
+        alert("Geolocation not supported");
+        return;
+    }
+
+    navigator.geolocation.getCurrentPosition(function(pos) {
+        let lat = pos.coords.latitude;
+        let lon = pos.coords.longitude;
+
+        let mapUrl = `https://www.google.com/maps/search/hospitals/@${lat},${lon},14z`;
+        window.open(mapUrl, "_blank");
+
+        let hospitals = [
+            { name: "Civil Hospital Solan", phone: "01792-223456" },
+            { name: "JP Hospital Solan", phone: "01792-220123" },
+            { name: "ESI Hospital Solan", phone: "01792-227890" }
+        ];
+
+        let hospitalOutput = '<div class="facility-section"><h2>Hospitals</h2>';
+        hospitals.forEach(h => {
+            hospitalOutput += `
+                <div class="hospital-card">
+                    🏥 <b>${h.name}</b><br>
+                    📞 ${h.phone}
+                </div>
+            `;
+        });
+        hospitalOutput += '</div>';
+
+        document.getElementById("result").innerHTML = hospitalOutput + '<div style="width:100%;text-align:center;margin-top:20px;"><button onclick="window.open(\'' + mapUrl + '\', \'_blank\')">See More on Maps</button></div>';
+
+    }, function() {
+        alert("Location permission denied");
+    });
+}
+
+function findLaboratories() {
+    if (!navigator.geolocation) {
+        alert("Geolocation not supported");
+        return;
+    }
+
+    navigator.geolocation.getCurrentPosition(function(pos) {
+        let lat = pos.coords.latitude;
+        let lon = pos.coords.longitude;
+
+        let mapUrl = `https://www.google.com/maps/search/laboratories/@${lat},${lon},14z`;
+        window.open(mapUrl, "_blank");
+
+        let laboratories = [
+            { name: "Solan Diagnostic Lab", phone: "01792-224567" },
+            { name: "Pathology Center Solan", phone: "01792-221234" },
+            { name: "Medical Testing Lab Solan", phone: "01792-228901" }
+        ];
+
+        let labOutput = '<div class="facility-section"><h2>Laboratories</h2>';
+        laboratories.forEach(l => {
+            labOutput += `
+                <div class="hospital-card">
+                    🧪 <b>${l.name}</b><br>
+                    📞 ${l.phone}
+                </div>
+            `;
+        });
+        labOutput += '</div>';
+
+        document.getElementById("result").innerHTML = labOutput + '<div style="width:100%;text-align:center;margin-top:20px;"><button onclick="window.open(\'' + mapUrl + '\', \'_blank\')">See More on Maps</button></div>';
+
+    }, function() {
+        alert("Location permission denied");
+    });
+}
+</script>
+
+</body>
+</html>
